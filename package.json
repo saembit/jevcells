@@ -1,0 +1,20 @@
+{
+	"name": "jevcells",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Jev in Google Sheets cells. Rank a range on weighted criteria, match rows between two ranges, tag with many labels, pick a value from candidates, plus the yes/no, choice and score basics.",
+	"license": "MIT",
+	"author": { "name": "Austin Choi", "email": "austinch20@protonmail.com" },
+	"repository": { "type": "git", "url": "https://github.com/saembit/jevcells.git" },
+	"type": "commonjs",
+	"scripts": {
+		"test": "vitest run",
+		"build": "node build.js",
+		"push": "npm run build && clasp push -f",
+		"open": "clasp open-script"
+	},
+	"devDependencies": {
+		"@google/clasp": "^3.4.1",
+		"vitest": "^3.2.4"
+	}
+}

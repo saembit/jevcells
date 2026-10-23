@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<base target="_top">
+<style>
+	body { font: 13px/1.5 Arial, sans-serif; margin: 14px; color: #222; }
+	input { width: 100%; box-sizing: border-box; padding: 8px; font: inherit; margin: 6px 0 10px; }
+	button { padding: 8px 12px; font: inherit; }
+	p { margin: 8px 0; }
+	.muted { color: #666; font-size: 12px; }
+</style>
+</head>
+<body>
+	<p>Paste your TypeSafe api key. It is stored in your user properties, not in the sheet, and only you can read it.</p>
+	<input id="key" type="password" placeholder="tsk_...">
+	<button onclick="save()">Save</button>
+	<p id="status" class="muted"></p>
+	<p class="muted">Get a key at console.typesafe.ai/settings/keys. Every formula sends the cell text to TypeSafe.</p>
+<script>
+	// Shows whether a key is already there
+	google.script.run.withSuccessHandler(function (has) {
+		document.getElementById('status').textContent = has ? 'A key is saved. Saving again replaces it.' : 'No key saved yet.';
+	}).hasKey();
+
+	// Saves the key and reports back
+	function save() {
+		var key = document.getElementById('key').value;
+		google.script.run
+			.withSuccessHandler(function () { document.getElementById('status').textContent = 'Saved. Formulas will work on the next recalculation.'; document.getElementById('key').value = ''; })
+			.withFailureHandler(function (e) { document.getElementById('status').textContent = 'Could not save: ' + e.message; })
+			.saveKey(key);
+	}
+</script>
+</body>
+</html>
